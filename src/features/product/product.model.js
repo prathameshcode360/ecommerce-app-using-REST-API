@@ -5,6 +5,9 @@ export default class ProductModel {
     this.price = price;
     this.image = image;
   }
+  static getAll() {
+    return products;
+  }
 }
 var products = [
   new ProductModel(
