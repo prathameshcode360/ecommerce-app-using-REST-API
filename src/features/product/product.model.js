@@ -5,6 +5,13 @@ export default class ProductModel {
     this.price = price;
     this.image = image;
   }
+
+  static add(productObj) {
+    productObj.id = products.length + 1;
+    products.push(productObj);
+    return productObj;
+  }
+
   static getAll() {
     return products;
   }

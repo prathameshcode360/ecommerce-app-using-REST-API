@@ -5,10 +5,22 @@ export default class ProductController {
     const products = ProductModel.getAll();
     res.status(200).send(products);
   }
-  addNewProduct(req, res) {
+  postProduct(req, res) {
     console.log(req.body);
     console.log("this is post request");
-    res.status(200).send("post request is recieved");
+    return res.send("post request is recieved");
   }
-  getOneProduct(req, res) {}
+
+  addNewProduct(req, res) {
+    const { name, price } = req.body;
+    const newProduct = {
+      name: name,
+      price: parseFloat(price),
+      image: req.file.filename,
+    };
+
+    const createdRecord = ProductModel.add(newProduct);
+    console.log(createdRecord);
+    return res.send(createdRecord);
+  }
 }
