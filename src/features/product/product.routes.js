@@ -18,5 +18,8 @@ productRouter.post(
   uploads.single("image"),
   productController.addNewProduct
 );
+productRouter.get("/:id", productController.getOneProduct);
+
+productRouter.get("/filter", productController.filterProduct);
 
 export default productRouter;

@@ -23,4 +23,20 @@ export default class ProductController {
     console.log(createdRecord);
     return res.send(createdRecord);
   }
+  getOneProduct(req, res) {
+    const id = req.params.id;
+    const product = ProductModel.get(id);
+    if (!product) {
+      return res.send("product not Found");
+    } else {
+      return res.send(product);
+    }
+  }
+  filterProduct(req, res) {
+    const minPrice = Number(req.query.minPrice);
+    const maxPrice = Number(req.query.maxPrice);
+    const result = ProductModel.filter(minPrice, maxPrice);
+    console.log(result);
+    return res.send(result);
+  }
 }
