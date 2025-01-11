@@ -22,7 +22,17 @@ export default class UserModel {
     const user = users.find((u) => u.email == email && u.password == password);
     return user;
   }
+
+  static getAll() {
+    return users;
+  }
 }
-var users = [
-  new UserModel("selleruser", "selleruser@gmail.com", "pass123", "seller"),
+let users = [
+  {
+    id: 1,
+    name: "seller user",
+    email: "seller@gmail.com",
+    password: "pass123",
+    type: "seller",
+  },
 ];
