@@ -7,8 +7,9 @@ export default class ProductController {
   }
 
   addNewProduct(req, res) {
-    console.log(req.body);
-    console.log("this is a post reques");
-    return res.send("post request recieved");
+    const { name, desc, price } = req.body;
+    const image = req.file.filename;
+    const createdRecord = ProductModel.add(name, desc, Number(price), image);
+    return res.send(createdRecord);
   }
 }
