@@ -10,4 +10,6 @@ const productController = new ProductController();
 
 productRouter.get("/", productController.getAllProducts);
 
+productRouter.post("/", productController.addNewProduct);
+
 export default productRouter;
