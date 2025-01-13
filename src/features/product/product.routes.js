@@ -10,6 +10,7 @@ const productRouter = express.Router();
 const productController = new ProductController();
 
 productRouter.get("/", productController.getAllProducts);
+productRouter.get("/:id", productController.getOneProduct);
 
 productRouter.post(
   "/",

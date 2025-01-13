@@ -21,6 +21,10 @@ export default class ProductModel {
     products.push(newProduct);
     return newProduct;
   }
+  static get(id) {
+    let product = products.find((p) => p.id == id);
+    return product;
+  }
 }
 
 var products = [
