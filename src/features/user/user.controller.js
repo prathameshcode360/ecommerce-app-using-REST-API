@@ -1,5 +1,5 @@
 import UserSchema from "./user.model.js";
-
+import jwt from "jsonwebtoken";
 export default class UserController {
   registerUser = (req, res) => {
     const { name, email, password } = req.body;
@@ -19,10 +19,19 @@ export default class UserController {
 
     const user = UserSchema.confirmLogin({ email, password });
     if (user) {
-      return res.status(200).json({
-        status: "success",
-        message: "login successful",
-      });
+      // create a token
+      const token = jwt.sign(
+        {
+          userId: user.id,
+          email: user.email,
+        },
+        "FAU2McwhilVQHuv7vyIVxpb335HhvhzI",
+        {
+          expiresIn: "1h",
+        }
+      );
+
+      return res.status(200).send(token);
     } else {
       return res.status(400).json({
         status: "failure",
