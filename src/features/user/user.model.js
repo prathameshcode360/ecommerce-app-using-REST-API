@@ -1,21 +1,28 @@
-export default class UserModel {
+export default class UserSchema {
   constructor(id, name, email, password) {
     this.id = id;
     this.name = name;
     this.email = email;
     this.password = password;
   }
-
-  static signUp(name, email, password) {
-    const newUser = new UserModel(users.length + 1, name, email, password);
+  static addUser = (data) => {
+    const newUser = new UserSchema(
+      users.length + 1,
+      data.name,
+      data.email,
+      data.password
+    );
     users.push(newUser);
     return newUser;
-  }
-
-  static signIn(email, password) {
-    const user = users.find((u) => u.email == email && u.password == password);
-    return user;
-  }
+  };
+  static confirmLogin = (data) => {
+    return users.find(
+      (user) => user.email === data.email && user.password === data.password
+    );
+  };
+  static getAllUsers = () => {
+    return users;
+  };
 }
 
-var users = [new UserModel(1, "prathamesh", "prathamesh@gmail.com", "pass123")];
+let users = [new UserSchema(1, "digu", "digu@gmail.com", "pass123")];

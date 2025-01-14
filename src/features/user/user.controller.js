@@ -1,19 +1,33 @@
-import UserModel from "./user.model.js";
+import UserSchema from "./user.model.js";
 
 export default class UserController {
-  getSignUp(req, res) {
+  registerUser = (req, res) => {
     const { name, email, password } = req.body;
-    const newUser = UserModel.signUp(name, email, password);
-    return res.status(201).send(newUser);
-  }
 
-  getsignIn(req, res) {
+    const newUser = UserSchema.addUser({ name, email, password });
+
+    console.log(newUser);
+
+    return res.status(201).json({
+      status: "success",
+      user: newUser,
+    });
+  };
+
+  loginUser = (req, res) => {
     const { email, password } = req.body;
-    const user = UserModel.signIn(email, password);
-    if (!user) {
-      return res.status(404).send("user not found");
+
+    const user = UserSchema.confirmLogin({ email, password });
+    if (user) {
+      return res.status(200).json({
+        status: "success",
+        message: "login successful",
+      });
     } else {
-      return res.send("Login Sucessfull");
+      return res.status(400).json({
+        status: "failure",
+        msg: "invalid user details",
+      });
     }
-  }
+  };
 }

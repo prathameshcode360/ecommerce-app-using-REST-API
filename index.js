@@ -8,12 +8,11 @@ const server = express();
 //using body parser middleware
 server.use(bodyParser.json());
 
+//creating users routes pattern
+server.use("/api/user", userRouter);
+
 //creating products routes pattern
 server.use("/api/products", productRouter);
-
-//creating users routes pattern
-
-server.use("/api/users", userRouter);
 
 server.get("/", (req, res) => {
   res.send("Welcome to node js server");
