@@ -10,6 +10,7 @@ export default function jwtAuth(req, res, next) {
   try {
     const payload = jwt.verify(token, "FAU2McwhilVQHuv7vyIVxpb335HhvhzI");
     console.log(payload);
+    req.userId = payload.userId;
   } catch (err) {
     return res.status(401).send("unAuthorized User");
   }

@@ -25,4 +25,7 @@ export default class UserSchema {
   };
 }
 
-let users = [new UserSchema(1, "digu", "digu@gmail.com", "pass123")];
+let users = [
+  new UserSchema(1, "digu", "digu@gmail.com", "pass123"),
+  new UserSchema(2, "prathamesh", "prathamesh@gmail.com", "12345"),
+];
