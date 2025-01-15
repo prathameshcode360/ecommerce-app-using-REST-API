@@ -29,4 +29,20 @@ export default class ProductController {
     const result = ProductModel.filter(minPrice, maxPrice);
     return res.status(200).send(result);
   }
+
+  rateProduct(req, res) {
+    const userID = req.query.userID;
+    const productID = req.query.productID;
+    const ratings = req.query.ratings;
+
+    // Call the model method to rate the product
+    const result = ProductModel.rateProducts(userID, productID, ratings);
+
+    // Check result for errors or success messages
+    if (result === "User not found" || result === "Product not found") {
+      return res.status(400).send(result); // Send error message
+    }
+
+    return res.status(200).send("Rating added successfully");
+  }
 }

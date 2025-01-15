@@ -11,7 +11,7 @@ const productController = new ProductController();
 
 productRouter.get("/", productController.getAllProducts);
 productRouter.get("/filter", productController.filterProduct);
-
+productRouter.post("/rate", productController.rateProduct);
 productRouter.get("/:id", productController.getOneProduct);
 
 productRouter.post(

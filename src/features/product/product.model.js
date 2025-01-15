@@ -1,3 +1,5 @@
+import UserSchema from "../user/user.model.js";
+
 export default class ProductModel {
   constructor(id, name, desc, price, image) {
     this.id = id;
@@ -30,6 +32,37 @@ export default class ProductModel {
       return p.price >= minPrice && p.price <= maxPrice;
     });
     return result;
+  }
+  static rateProducts(userID, productID, ratings) {
+    // 1. Validate user
+    const user = UserSchema.getAllUsers().find((u) => u.id == userID);
+    if (!user) {
+      return "User not found";
+    }
+
+    // 2. Validate product
+    const product = products.find((p) => p.id == productID);
+    if (!product) {
+      return "Product not found";
+    }
+
+    // 3. Initialize ratings array if it doesn't exist and add the rating
+    if (!product.ratings) {
+      product.ratings = [{ userID, ratings }];
+    } else {
+      // 4. Check if the user has already rated this product
+      const existingRatingIndex = product.ratings.findIndex(
+        (r) => r.userID == userID
+      );
+
+      if (existingRatingIndex >= 0) {
+        // Update the existing rating
+        product.ratings[existingRatingIndex].ratings = ratings;
+      } else {
+        // Add a new rating
+        product.ratings.push({ userID, ratings });
+      }
+    }
   }
 }
 
