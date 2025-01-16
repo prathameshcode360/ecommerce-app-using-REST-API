@@ -6,7 +6,8 @@ export default class ProductController {
     return res.status(200).send(products);
   }
   addProduct(req, res) {
-    const { name, price, image } = req.body;
+    const { name, price } = req.body;
+    const image = req.file.filename;
     const newProduct = ProductModel.add(name, price, image);
     return res.status(201).send(newProduct);
   }
