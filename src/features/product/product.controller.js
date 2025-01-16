@@ -19,4 +19,14 @@ export default class ProductController {
       return res.status(200).send(product);
     }
   }
+  filterProducts(req, res) {
+    const minPrice = req.query.minPrice;
+    const maxPrice = req.query.maxPrice;
+    const result = ProductModel.filter(minPrice, maxPrice);
+    if (!result) {
+      return res.status(400).send("product not found");
+    } else {
+      return res.status(200).send(result);
+    }
+  }
 }
