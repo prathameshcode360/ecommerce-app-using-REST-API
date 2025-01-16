@@ -29,6 +29,10 @@ server.get("/", (req, res) => {
   res.send("Welcome to node js server");
 });
 
+server.use((req, res) => {
+  res.send("API Not Found! please contact the admin");
+});
+
 server.listen(3700, () => {
   console.log("server is listening on the port 3700");
 });
