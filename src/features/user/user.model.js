@@ -13,6 +13,11 @@ export default class UserModel {
     users.push(newUser);
     return newUser;
   }
+
+  static signIn(email, password) {
+    const user = users.find((u) => u.email == email && u.password == password);
+    return user;
+  }
 }
 
 let users = [new UserModel(1, "seller", "seller@gmail.com", "pass123")];

@@ -13,4 +13,17 @@ export default class UserController {
       newuser: newUser,
     });
   }
+
+  login(req, res) {
+    const { email, password } = req.body;
+    const user = UserModel.signIn(email, password);
+    if (!user) {
+      return res.status(400).send("user not fonud");
+    } else {
+      return res.status(200).send({
+        msg: "login successfully",
+        newuser: user,
+      });
+    }
+  }
 }

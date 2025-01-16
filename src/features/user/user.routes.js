@@ -7,5 +7,6 @@ const userController = new UserController();
 
 userRouter.get("/", userController.getUsers);
 userRouter.post("/signup", userController.register);
+userRouter.post("/login", userController.login);
 
 export default userRouter;
