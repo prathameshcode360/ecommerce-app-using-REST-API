@@ -8,6 +8,11 @@ export default class UserModel {
   static getAll() {
     return users;
   }
+  static signUp(name, email, password) {
+    const newUser = new UserModel(users.length + 1, name, email, password);
+    users.push(newUser);
+    return newUser;
+  }
 }
 
 let users = [new UserModel(1, "seller", "seller@gmail.com", "pass123")];
