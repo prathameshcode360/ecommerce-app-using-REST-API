@@ -1,0 +1,68 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "description": "API for e-commerce application",
+      "title": "E-commerce Application"
+    },
+    "host": "localhost:3700",
+    "securityDefinitions": {
+      "JWT": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    },
+    "paths": {
+      "/api/user/login": {
+        "post": {
+            "tags":["users"],
+          "summary": "log-in",
+          "description": "for user login",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "user credentials",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "ok"
+            },
+            "400": {
+              "description": "incorrect credentials"
+            }
+          }
+        }
+      },
+      "/api/products": {
+        "get": {
+            "tags":["products"],
+          "summary": "get products",
+          "description": "user will get all products",
+          "security": [{ "JWT": {} }],
+          "responses": {
+            "200": {
+              "description": "ok"
+            },
+            "401": {
+              "description": "Unauthorized User"
+            }
+          }
+        }
+      }
+    }
+  }
+  
