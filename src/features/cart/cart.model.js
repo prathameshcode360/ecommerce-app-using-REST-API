@@ -24,10 +24,20 @@ export default class CartModel {
   static getItem(userId) {
     return this.cartItems.filter((item) => item.userId === userId);
   }
+
+  static delete(cartId, userId) {
+    let cartItemIndex = this.cartItems.findIndex((c) => {
+      c.id == cartId && c.userId == userId;
+    });
+    if (cartItemIndex == -1) {
+      return "Item not found in card";
+    } else {
+      this.cartItems.splice(cartItemIndex, 1);
+    }
+  }
 }
 
 // Example Initialization
 CartModel.cartItems = [
-  new CartModel(1, 1, 3, 1), // Valid cart item
-  new CartModel(2, 2, 5, 2), // Valid cart item
+  new CartModel(1, 2, 5, 1), // Valid cart item
 ];

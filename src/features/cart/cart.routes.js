@@ -7,5 +7,6 @@ const cartController = new CartController();
 
 cartRouter.post("/add", cartController.add);
 cartRouter.get("/get", cartController.get);
+cartRouter.delete("/delete", cartController.delete);
 
 export default cartRouter;
