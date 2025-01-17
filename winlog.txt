@@ -1,0 +1,1 @@
+{"level":"info","message":"/api/users/login-{\"email\":\"seller@gmail.com\",\"password\":\"pass123\"}","service":"logging request"}
