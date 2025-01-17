@@ -20,6 +20,12 @@ server.get("/", (req, res) => {
   res.send("Welcome to node js server");
 });
 
+//defualt error handling middleware
+server.use((err, req, res, next) => {
+  console.log(err);
+  return res.send("Something went wrong please try again later");
+});
+
 server.listen(3700, () => {
   console.log("server is listening on the port 3700");
 });
