@@ -16,14 +16,18 @@ export default class UserController {
 
   login(req, res) {
     const { email, password } = req.body;
-    const user = UserModel.signIn(email, password);
-    if (!user) {
-      return res.status(400).send("user not fonud");
-    } else {
+    try {
+      const user = UserModel.signIn(email, password); // Call the sign-in method
+      if (!user) {
+        return res.status(404).send("User not found"); // Handle case where user does not exist
+      }
       return res.status(200).send({
-        msg: "login successfully",
+        msg: "Login successful",
         newuser: user,
       });
+    } catch (error) {
+      console.error("Error during login:", error); // Log error for debugging
+      return res.status(500).send("An error occurred while logging in");
     }
   }
 }
