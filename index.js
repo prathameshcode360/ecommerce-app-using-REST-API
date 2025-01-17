@@ -2,13 +2,15 @@ import express from "express";
 import bodyParser from "body-parser";
 import productRouter from "./src/features/product/product.routes.js";
 import userRouter from "./src/features/user/user.routes.js";
+import loggerMiddleware from "./src/middlewares/logger.middleware.js";
 
 const server = express();
 //bodyparser
 server.use(bodyParser.json());
 
-// routes for users
+server.use(loggerMiddleware);
 
+// routes for users
 server.use("/api/users/", userRouter);
 
 //rotes for products
