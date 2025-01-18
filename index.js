@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import productRouter from "./src/features/product/product.routes.js";
 import userRouter from "./src/features/user/user.routes.js";
+import connectToMongoDb from "./src/config/mongodb.js";
 
 const server = express();
 //bodyparser
@@ -20,4 +21,5 @@ server.get("/", (req, res) => {
 
 server.listen(3700, () => {
   console.log("server is listening on the port 3700");
+  connectToMongoDb();
 });
