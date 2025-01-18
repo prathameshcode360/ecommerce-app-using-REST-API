@@ -1,6 +1,9 @@
+import { Collection } from "mongodb";
+import { getDb } from "../../config/mongodb.js";
+
 export default class UserModel {
-  constructor(id, name, email, password) {
-    this.id = id;
+  constructor(name, email, password, id) {
+    this._id = id;
     this.name = name;
     this.email = email;
     this.password = password;
@@ -8,10 +11,17 @@ export default class UserModel {
   static getAll() {
     return users;
   }
-  static signUp(name, email, password) {
-    const newUser = new UserModel(users.length + 1, name, email, password);
-    users.push(newUser);
-    return newUser;
+
+  static async signUp(name, email, password) {
+    try {
+      const db = getDb();
+      const collection = db.collection("users"); // Corrected method name
+      const newUser = new UserModel(name, email, password);
+      await collection.insertOne(newUser); // Insert new user into the collection
+      return newUser;
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   static signIn(email, password) {

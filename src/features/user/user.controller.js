@@ -5,9 +5,9 @@ export default class UserController {
     let users = UserModel.getAll();
     return res.status(200).send(users);
   }
-  register(req, res) {
+  async register(req, res) {
     const { name, email, password } = req.body;
-    const newUser = UserModel.signUp(name, email, password);
+    const newUser = await UserModel.signUp(name, email, password);
     return res.status(201).send({
       msg: "user added successfully",
       newuser: newUser,
