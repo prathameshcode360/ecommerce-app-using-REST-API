@@ -23,7 +23,7 @@ server.get("/", (req, res) => {
 //defualt error handling middleware
 server.use((err, req, res, next) => {
   console.log(err);
-  return res.send("Something went wrong please try again later");
+  return res.status(500).send("Something went wrong please try again later");
 });
 
 server.listen(3700, () => {
