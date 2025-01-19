@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import UserModel from "./user.model.js";
 import UserRepository from "./user.repository.js";
 
@@ -8,7 +9,8 @@ export default class UserController {
 
   async register(req, res) {
     const { name, email, password } = req.body;
-    const newUser = await this.userRepo.signUp(name, email, password);
+    const hashPassword = await bcrypt.hash(password, 12);
+    const newUser = await this.userRepo.signUp(name, email, hashPassword);
     return res.status(201).send({
       msg: "user added successfully",
       newuser: newUser,
@@ -17,9 +19,10 @@ export default class UserController {
 
   async login(req, res) {
     const { email, password } = req.body;
-    const user = await this.userRepo.signIn(email, password);
-    if (!user) {
-      return res.status(400).send("user not fonud");
+    const user = await this.userRepo.findByEmail(email);
+    const result = await bcrypt.compare(password, user.password);
+    if (!result) {
+      return res.status(400).send("Invalid Credentails");
     } else {
       return res.status(200).send({
         msg: "login successfully",

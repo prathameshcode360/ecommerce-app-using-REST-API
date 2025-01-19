@@ -13,11 +13,11 @@ export default class UserRepository {
       console.error("Error:", err);
     }
   }
-  signIn(email, password) {
+  findByEmail(email) {
     try {
       const db = getDB();
       const collection = db.collection("users");
-      const user = collection.findOne({ email, password });
+      const user = collection.findOne({ email });
       return user;
     } catch (err) {
       console.error("Error:", err);
