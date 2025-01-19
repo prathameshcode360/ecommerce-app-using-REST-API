@@ -1,6 +1,21 @@
 import ProductModel from "./product.model.js";
-
+import ProductRepository from "./product.repository.js";
 export default class ProductController {
+  constructor() {
+    this.productRepo = new ProductRepository();
+  }
+
+  async addProduct(req, res) {
+    try {
+      const { name, price } = req.body;
+      const image = req.file.filename;
+      const newProduct = await this.productRepo.add(name, price, image);
+      return res.status(201).send(newProduct);
+    } catch (err) {
+      console.error("Error while fetching products:", err);
+      return res.status(500).send("Error occured while adding products");
+    }
+  }
   getProducts(req, res) {
     try {
       let products = ProductModel.getAll();
@@ -8,17 +23,6 @@ export default class ProductController {
     } catch (err) {
       console.error("Error while fetching products:", err);
       return res.status(500).send("Error occured while fetching products");
-    }
-  }
-  addProduct(req, res) {
-    try {
-      const { name, price } = req.body;
-      const image = req.file.filename;
-      const newProduct = ProductModel.add(name, price, image);
-      return res.status(201).send(newProduct);
-    } catch (err) {
-      console.error("Error while fetching products:", err);
-      return res.status(500).send("Error occured while adding products");
     }
   }
   getOneProduct(req, res) {

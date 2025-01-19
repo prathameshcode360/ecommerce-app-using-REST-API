@@ -1,6 +1,6 @@
 export default class ProductModel {
-  constructor(id, name, price, image) {
-    this.id = id;
+  constructor(name, price, image, id) {
+    this._id = id;
     this.name = name;
     this.price = price;
     this.image = image;
@@ -9,16 +9,7 @@ export default class ProductModel {
   static getAll() {
     return products;
   }
-  static add(name, price, image) {
-    const newProduct = new ProductModel(
-      products.length + 1,
-      name,
-      price,
-      image
-    );
-    products.push(newProduct);
-    return newProduct;
-  }
+
   static getOne(id) {
     const product = products.find((p) => p.id == id);
     return product;
