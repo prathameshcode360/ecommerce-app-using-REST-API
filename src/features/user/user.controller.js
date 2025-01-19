@@ -15,9 +15,9 @@ export default class UserController {
     });
   }
 
-  login(req, res) {
+  async login(req, res) {
     const { email, password } = req.body;
-    const user = UserModel.signIn(email, password);
+    const user = await this.userRepo.signIn(email, password);
     if (!user) {
       return res.status(400).send("user not fonud");
     } else {

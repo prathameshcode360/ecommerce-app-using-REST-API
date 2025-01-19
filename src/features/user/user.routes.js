@@ -9,6 +9,8 @@ userRouter.get("/", userController.getUsers);
 userRouter.post("/signup", (req, res) => {
   userController.register(req, res);
 });
-userRouter.post("/login", userController.login);
+userRouter.post("/login", (req, res) => {
+  userController.login(req, res);
+});
 
 export default userRouter;
