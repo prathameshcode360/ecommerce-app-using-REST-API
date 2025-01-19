@@ -5,6 +5,7 @@ import userRouter from "./src/features/user/user.routes.js";
 import { connectMongoDb } from "./src/config/mongodb.js";
 
 const server = express();
+
 //bodyparser
 server.use(bodyParser.json());
 

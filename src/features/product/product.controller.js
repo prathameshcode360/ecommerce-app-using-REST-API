@@ -16,19 +16,19 @@ export default class ProductController {
       return res.status(500).send("Error occured while adding products");
     }
   }
-  getProducts(req, res) {
+  async getProducts(req, res) {
     try {
-      let products = ProductModel.getAll();
+      let products = await this.productRepo.getAll();
       return res.status(200).send(products);
     } catch (err) {
       console.error("Error while fetching products:", err);
       return res.status(500).send("Error occured while fetching products");
     }
   }
-  getOneProduct(req, res) {
+  async getOneProduct(req, res) {
     try {
       const id = req.params.id;
-      const product = ProductModel.getOne(id);
+      const product = await this.productRepo.get(id);
       if (!product) {
         return res.status(400).send("product not found");
       } else {
