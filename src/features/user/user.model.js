@@ -1,4 +1,3 @@
-import { getDB } from "../../config/mongodb.js";
 export default class UserModel {
   constructor(name, email, password, id) {
     this._id = id;
@@ -8,18 +7,6 @@ export default class UserModel {
   }
   static getAll() {
     return users;
-  }
-  static async signUp(name, email, password) {
-    try {
-      const db = getDB();
-      const collection = db.collection("users");
-
-      const newUser = new UserModel(name, email, password);
-      await collection.insertOne(newUser);
-      return newUser;
-    } catch (err) {
-      console.error("Error:", err);
-    }
   }
 
   static signIn(email, password) {

@@ -1,14 +1,14 @@
 import UserModel from "./user.model.js";
+import UserRepository from "./user.repository.js";
 
 export default class UserController {
-  getUsers(req, res) {
-    let users = UserModel.getAll();
-    return res.status(200).send(users);
+  constructor() {
+    this.userRepo = new UserRepository();
   }
+
   async register(req, res) {
     const { name, email, password } = req.body;
-    const newUser = await UserModel.signUp(name, email, password);
-    console.log(newUser);
+    const newUser = await this.userRepo.signUp(name, email, password);
     return res.status(201).send({
       msg: "user added successfully",
       newuser: newUser,
@@ -26,5 +26,9 @@ export default class UserController {
         newuser: user,
       });
     }
+  }
+  getUsers(req, res) {
+    let users = UserModel.getAll();
+    return res.status(200).send(users);
   }
 }
