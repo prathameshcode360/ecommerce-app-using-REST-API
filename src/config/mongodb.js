@@ -1,14 +1,17 @@
 import { MongoClient } from "mongodb";
 
 const url = "mongodb://localhost:27017/";
-
-function connectMongoDb() {
+let client;
+export function connectMongoDb() {
   MongoClient.connect(url)
-    .then((client) => {
+    .then((clientInstance) => {
+      client = clientInstance;
       console.log("connection sucessfull");
     })
     .catch((err) => {
       console.error("connection error occures:", err);
     });
 }
-export default connectMongoDb;
+export function getDB() {
+  return client.db();
+}
