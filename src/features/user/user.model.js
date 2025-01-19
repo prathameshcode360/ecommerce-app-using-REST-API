@@ -1,7 +1,7 @@
 import { getDB } from "../../config/mongodb.js";
 export default class UserModel {
-  constructor(id, name, email, password) {
-    this.id = id;
+  constructor(name, email, password, id) {
+    this._id = id;
     this.name = name;
     this.email = email;
     this.password = password;
