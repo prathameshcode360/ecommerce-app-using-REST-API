@@ -1,4 +1,3 @@
-import { ObjectId } from "mongodb";
 import { getDB } from "../../config/mongodb.js";
 import ProductModel from "./product.model.js";
 
