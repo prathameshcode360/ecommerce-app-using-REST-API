@@ -37,31 +37,27 @@ export default class ProductRepository {
       console.error("Error:", err);
     }
   }
-  async filter(minPrice, maxPrice, category) {
+  async filter(minPrice, category) {
     try {
       const db = getDB();
       const collection = db.collection(this.collection);
-      const filterExpression = {};
 
-      // Combine minPrice and maxPrice into a single price filter if both are provided
-      if (minPrice && maxPrice) {
-        filterExpression.price = {
-          $gte: parseFloat(minPrice),
-          $lte: parseFloat(maxPrice),
-        };
-      } else if (minPrice) {
-        filterExpression.price = { $gte: parseFloat(minPrice) };
-      } else if (maxPrice) {
-        filterExpression.price = { $lte: parseFloat(maxPrice) };
+      // Using $and operator to combine conditions
+      const filterExpression = [];
+
+      if (minPrice) {
+        filterExpression.push({ price: { $gte: parseFloat(minPrice) } });
       }
 
-      // Add category filter if provided
       if (category) {
-        filterExpression.category = category;
+        filterExpression.push({ category: category });
       }
 
-      // Retrieve and return the filtered results
-      return await collection.find(filterExpression).toArray();
+      // Apply $and only if there are conditions
+      const query =
+        filterExpression.length > 0 ? { $and: filterExpression } : {};
+
+      return await collection.find(query).toArray();
     } catch (err) {
       console.error("Error filtering products:", err);
     }
