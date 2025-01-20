@@ -11,7 +11,9 @@ productRouter.get("/", (req, res) => {
 productRouter.post("/add", fileUpload.single("image"), (req, res) => {
   productController.addProduct(req, res);
 });
-productRouter.get("/filter", productController.filterProducts);
+productRouter.get("/filter", (req, res) => {
+  productController.filterProducts(req, res);
+});
 productRouter.get("/get/:id", (req, res) => {
   productController.getOneProduct(req, res);
 });

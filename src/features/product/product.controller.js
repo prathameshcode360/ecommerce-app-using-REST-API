@@ -11,7 +11,7 @@ export default class ProductController {
       const image = req.file.filename;
       const newProduct = await this.productRepo.add(
         name,
-        price,
+        Number(price),
         image,
         category
       );
@@ -44,11 +44,16 @@ export default class ProductController {
       return res.status(500).send("Error occured while fetching one product");
     }
   }
-  filterProducts(req, res) {
+  async filterProducts(req, res) {
     try {
       const minPrice = req.query.minPrice;
       const maxPrice = req.query.maxPrice;
-      const result = ProductModel.filter(minPrice, maxPrice);
+      const category = req.query.category;
+      const result = await this.productRepo.filter(
+        minPrice,
+        maxPrice,
+        category
+      );
       if (!result) {
         return res.status(400).send("product not found");
       } else {

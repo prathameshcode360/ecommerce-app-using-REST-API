@@ -37,4 +37,33 @@ export default class ProductRepository {
       console.error("Error:", err);
     }
   }
+  async filter(minPrice, maxPrice, category) {
+    try {
+      const db = getDB();
+      const collection = db.collection(this.collection);
+      const filterExpression = {};
+
+      // Combine minPrice and maxPrice into a single price filter if both are provided
+      if (minPrice && maxPrice) {
+        filterExpression.price = {
+          $gte: parseFloat(minPrice),
+          $lte: parseFloat(maxPrice),
+        };
+      } else if (minPrice) {
+        filterExpression.price = { $gte: parseFloat(minPrice) };
+      } else if (maxPrice) {
+        filterExpression.price = { $lte: parseFloat(maxPrice) };
+      }
+
+      // Add category filter if provided
+      if (category) {
+        filterExpression.category = category;
+      }
+
+      // Retrieve and return the filtered results
+      return await collection.find(filterExpression).toArray();
+    } catch (err) {
+      console.error("Error filtering products:", err);
+    }
+  }
 }
