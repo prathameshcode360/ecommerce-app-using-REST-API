@@ -6,11 +6,11 @@ export default class ProductRepository {
   constructor() {
     this.collection = "products";
   }
-  async add(name, price, image) {
+  async add(name, price, image, category) {
     try {
       const db = getDB();
       const collection = db.collection(this.collection);
-      const newProduct = new ProductModel(name, price, image);
+      const newProduct = new ProductModel(name, price, image, category);
       await collection.insertOne(newProduct);
       return newProduct;
     } catch (err) {

@@ -7,9 +7,14 @@ export default class ProductController {
 
   async addProduct(req, res) {
     try {
-      const { name, price } = req.body;
+      const { name, price, category } = req.body;
       const image = req.file.filename;
-      const newProduct = await this.productRepo.add(name, price, image);
+      const newProduct = await this.productRepo.add(
+        name,
+        price,
+        image,
+        category
+      );
       return res.status(201).send(newProduct);
     } catch (err) {
       console.error("Error while fetching products:", err);
